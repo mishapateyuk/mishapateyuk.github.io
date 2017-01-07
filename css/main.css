@@ -5,11 +5,14 @@
 html {
     font-size: 20px;
     height: 100%;
+
 }
 
 body {
     font-size: 1.4rem;
     height: 100%;
+    min-width: 460px;
+    min-height: 730px;
 }
 
 .wrapper {
