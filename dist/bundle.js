@@ -698,7 +698,7 @@
 	            this.pubSub.on('Swipe:swipeRight', function (currentPage, totalPage) {
 	                if (totalPage - currentPage <= 2) {
 	                    _this.dataService.getItems(_this.searchValue, _this.nextPageToken).then(function (data) {
-	                        var fragment = _this.elementFactory.createArticles(data.items, JSON.parse(localStorage.youTubeBookmarks));
+	                        var fragment = _this.elementFactory.createArticles(data.items, JSON.parse(localStorage.getItem('youTubeBookmarks')) || []);
 	                        _this.videoWrapper.appendChild(fragment);
 	                        _this.pubSub.trigger('ContentController:newArticles');
 	                        _this.nextPageToken = data.nextPageToken;
@@ -794,7 +794,7 @@
 	        value: function loadBookmarks() {
 	            var _this2 = this;
 	
-	            var videoIDs = JSON.parse(localStorage.youTubeBookmarks);
+	            var videoIDs = JSON.parse(localStorage.getItem('youTubeBookmarks'));
 	            if (videoIDs) {
 	                this.dataService.getVideoInfoById(videoIDs, ['snippet', 'statistics']).then(function (data) {
 	                    var tmp = _this2.elementFactory.createBookmarksList(data.items, videoIDs);
@@ -831,28 +831,27 @@
 	                    _this3.pubSub.trigger('ContentController:searchHistory');
 	                    _this3.videoWrapper.appendChild(_this3.elementFactory.createNoSearchResultMessage());
 	                }
-	                var fragment = _this3.elementFactory.createArticles(data.items, JSON.parse(localStorage.youTubeBookmarks));
+	                var fragment = _this3.elementFactory.createArticles(data.items, JSON.parse(localStorage.getItem('youTubeBookmarks')) || []);
 	                _this3.videoWrapper.appendChild(fragment);
 	                _this3.searchValue = val;
 	                _this3.pubSub.trigger('ContentController:newArticles');
 	                _this3.nextPageToken = data.nextPageToken;
 	            });
-	            if (localStorage.youTubeSearchHistory) {
-	                var _tmp = JSON.parse(localStorage.youTubeSearchHistory);
-	                for (var i = 0; i < _tmp.length; i++) {
-	                    if (_tmp[i][0] === val) {
-	                        _tmp.splice(i, 1);
+	            var youTubeSearchHistory = JSON.parse(localStorage.getItem('youTubeSearchHistory'));
+	            if (youTubeSearchHistory) {
+	                for (var i = 0; i < youTubeSearchHistory.length; i++) {
+	                    if (youTubeSearchHistory[i][0] === val) {
+	                        youTubeSearchHistory.splice(i, 1);
 	                    }
 	                }
-	                _tmp.push([val, new Date().toString().substr(0, 25)]);
-	                if (_tmp.length > 13) {
-	                    _tmp.splice(0, 1);
+	                youTubeSearchHistory.push([val, new Date().toString().substr(0, 25)]);
+	                if (youTubeSearchHistory.length > 13) {
+	                    youTubeSearchHistory.splice(0, 1);
 	                }
-	                localStorage.setItem('youTubeSearchHistory', JSON.stringify(_tmp));
+	                localStorage.setItem('youTubeSearchHistory', JSON.stringify(youTubeSearchHistory));
 	                return;
 	            }
-	            var tmp = [];
-	            tmp[0] = [val, new Date().toString().substr(0, 24)];
+	            var tmp = [[val, new Date().toString().substr(0, 24)]];
 	            localStorage.setItem('youTubeSearchHistory', JSON.stringify(tmp));
 	        }
 	    }, {
@@ -863,21 +862,20 @@
 	            }
 	            var id = e.target.parentNode.parentNode.id;
 	            e.target.parentNode.parentNode.classList.toggle('active-bookmark');
-	            if (localStorage.youTubeBookmarks) {
-	                var _tmp2 = JSON.parse(localStorage.youTubeBookmarks);
-	                for (var i = 0; i < _tmp2.length; i++) {
-	                    if (_tmp2[i] === id) {
-	                        _tmp2.splice(i, 1);
-	                        localStorage.setItem('youTubeBookmarks', JSON.stringify(_tmp2));
+	            var youTubeBookmarks = JSON.parse(localStorage.getItem('youTubeBookmarks'));
+	            if (youTubeBookmarks) {
+	                for (var i = 0; i < youTubeBookmarks.length; i++) {
+	                    if (youTubeBookmarks[i] === id) {
+	                        youTubeBookmarks.splice(i, 1);
+	                        localStorage.setItem('youTubeBookmarks', JSON.stringify(youTubeBookmarks));
 	                        return;
 	                    }
 	                }
-	                _tmp2.push(id);
-	                localStorage.setItem('youTubeBookmarks', JSON.stringify(_tmp2));
+	                youTubeBookmarks.push(id);
+	                localStorage.setItem('youTubeBookmarks', JSON.stringify(youTubeBookmarks));
 	                return;
 	            }
-	            var tmp = [];
-	            tmp[0] = e.target.parentNode.parentNode.id;
+	            var tmp = [e.target.parentNode.parentNode.id];
 	            localStorage.setItem('youTubeBookmarks', JSON.stringify(tmp));
 	        }
 	    }, {
