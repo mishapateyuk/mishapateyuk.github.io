@@ -272,6 +272,9 @@
 	                var prevPageMargin = (this.slideNumber + 1) * this.slideWidth;
 	                this.videoWrapper.style.marginLeft = prevPageMargin + 'px';
 	            }
+	            if (Math.abs(this.mouseDownMargin - currentMargin) < 15) {
+	                this.videoWrapper.style.marginLeft = this.mouseDownMargin + 'px';
+	            }
 	        }
 	    }, {
 	        key: 'pagging',
