@@ -197,7 +197,7 @@
 	    }, {
 	        key: 'mousedownHandler',
 	        value: function mousedownHandler(e) {
-	            if (e.target.nodeName === 'INPUT') {
+	            if (e.target.nodeName === 'INPUT' || e.target.nodeName === 'LI') {
 	                return;
 	            }
 	            if (e.clientX) {
@@ -221,7 +221,7 @@
 	    }, {
 	        key: 'mouseUpHandler',
 	        value: function mouseUpHandler(e) {
-	            if (e.target.nodeName === 'INPUT') {
+	            if (e.target.nodeName === 'INPUT' || e.target.nodeName === 'LI') {
 	                return;
 	            }
 	            this.calculatePagesCount();
@@ -246,6 +246,7 @@
 	            }
 	            var pageNumber = -(e.target.innerHTML - 1);
 	            this.videoWrapper.style.marginLeft = pageNumber * this.slideWidth + 'px';
+	            setTimeout(this.pagging, 500);
 	        }
 	    }, {
 	        key: 'controlLimit',
@@ -974,10 +975,11 @@
 	                    return item.id.videoId;
 	                });
 	                var nextPageToken = data.nextPageToken;
-	                return _this.getVideoInfoById(ids, 'statistics').then(function (_data) {
+	                return _this.getVideoInfoById(ids, ['snippet', 'statistics']).then(function (_data) {
 	                    var _items = _data.items;
 	                    for (var i = 0; i < items.length; i++) {
 	                        items[i].statistics = _items[i].statistics;
+	                        items[i].snippet = _items[i].snippet;
 	                    }
 	                    return {
 	                        items: items,

@@ -357,6 +357,12 @@ main input {
     }
 }
 
+@media (max-device-width: 1460px) {
+    .footer-nav li:hover {
+        color: black;
+    }
+}
+
 @media (max-device-width: 1100px), (max-width: 1100px) {
     main {
         width: 700px;
@@ -366,11 +372,23 @@ main input {
     }
 }
 
+@media (max-device-width: 1100px) {
+    .footer-nav li:hover {
+        color: black;
+    }
+}
+
 @media (max-device-width: 730px), (max-width: 730px) {
     main {
         width: 300px;
     }
     .input-wrapper {
         width: 300px;
+    }
+}
+
+@media (max-device-width: 730px) {
+    .footer-nav li:hover {
+        color: black;
     }
 }
