@@ -347,7 +347,7 @@ main input {
     border-right: none;
 }
 
-.active-page {
+.footer-nav ul li.active-page {
     color: #fe6f00;
 }
 
@@ -375,6 +375,9 @@ main input {
 @media (max-device-width: 1100px) {
     .footer-nav li:hover {
         color: black;
+    }
+    .bookmark:hover {
+        color: white;
     }
 }
 

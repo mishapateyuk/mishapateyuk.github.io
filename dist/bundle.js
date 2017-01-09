@@ -940,9 +940,9 @@
 	            return new Promise(function (resolve, reject) {
 	                var xhr = new XMLHttpRequest();
 	                if (nextPage) {
-	                    xhr.open('GET', 'https://www.googleapis.com/youtube/v3/search?' + 'key=AIzaSyCTWC75i70moJLzyNh3tt4jzCljZcRkU8Y&' + 'type=video&' + 'part=snippet&' + 'maxResults=15&' + ('pageToken=' + nextPage + '&') + ('q=' + val + '?'), true);
+	                    xhr.open('GET', 'https://www.googleapis.com/youtube/v3/search?' + 'key=AIzaSyBhRZ03_asTiwIY2DYwUWP8JvcAGkjHNqU&' + 'type=video&' + 'part=snippet&' + 'maxResults=15&' + ('pageToken=' + nextPage + '&') + ('q=' + val + '?'), true);
 	                } else {
-	                    xhr.open('GET', 'https://www.googleapis.com/youtube/v3/search?' + 'key=AIzaSyCTWC75i70moJLzyNh3tt4jzCljZcRkU8Y&' + 'type=video&' + 'part=snippet&' + 'maxResults=15&' + ('q=' + val + '?'), true);
+	                    xhr.open('GET', 'https://www.googleapis.com/youtube/v3/search?' + 'key=AIzaSyBhRZ03_asTiwIY2DYwUWP8JvcAGkjHNqU&' + 'type=video&' + 'part=snippet&' + 'maxResults=15&' + ('q=' + val + '?'), true);
 	                }
 	                xhr.send();
 	                xhr.onreadystatechange = function () {
@@ -958,7 +958,7 @@
 	        value: function getVideoInfoById(idMovies, part) {
 	            return new Promise(function (resolve, reject) {
 	                var xhr = new XMLHttpRequest();
-	                xhr.open('GET', 'https://www.googleapis.com/youtube/v3/videos?' + 'key=AIzaSyCTWC75i70moJLzyNh3tt4jzCljZcRkU8Y&' + ('part=' + part + '&') + ('id=' + idMovies), true);
+	                xhr.open('GET', 'https://www.googleapis.com/youtube/v3/videos?' + 'key=AIzaSyBhRZ03_asTiwIY2DYwUWP8JvcAGkjHNqU&' + ('part=' + part + '&') + ('id=' + idMovies), true);
 	                xhr.send();
 	                xhr.onreadystatechange = function () {
 	                    if (xhr.readyState !== 4) {
